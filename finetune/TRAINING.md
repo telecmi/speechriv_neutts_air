@@ -1,3 +1,11 @@
+# Download data from huggingface
+```python 
+python finetune/data_download.py 
+``` 
+# Data preperation for neutts model training 
+```python 
+python finetune/data_prep.py #this will push the data to huggingafce which is needed for model training
+```
 # Model finetuning
 
 NeuTTS-Air follows [Llasa](https://github.com/zhenye234/LLaSA_training) in its training and inference setup. In order to finetune a model, you can use the `transformers` library from Hugging Face. We have an [example script](/examples/finetune.py) for finetuning using the [Emilia-YODAS dataset](https://huggingface.co/datasets/neuphonic/emilia-yodas-english-neucodec) that is encoded with [NeuCodec](https://huggingface.co/neuphonic/neucodec).
