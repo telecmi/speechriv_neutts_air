@@ -15,7 +15,7 @@ You can prepare your own dataset by following these steps:
 4. Run the finetuning script with your dataset and configuration file. To do this, navigate to the base directory of your cloned repo in the terminal and run:
 
     ```bash
-    python examples/finetune.py examples/finetune_config.yaml
+    python finetune/finetune.py finetune/config.yaml
     ```
 
     replacing the argument with the path to your own config file if needed.
@@ -58,3 +58,27 @@ model.vocab_size = len(tokenizer)
 ```
 
 You can then modify the input to the model to include these additional labels. For example, if you have speaker IDs or emotion labels, you can concatenate them with the phoneme tokens before passing them to the model.
+
+# Tracking loss through Wandb
+```bash 
+create your wandb account thorugh github and login to use it for your training loss tracking
+
+    wandb.init(
+            project="NeuTTS",
+            name="tts-common-hindi-4", # any name you want to have
+            config={
+                "model": config.restore_from,
+                "train_dataset": "speechriv/neucodec-data-hindi", #dataset name 
+                # "val_dataset": "1000_samples",
+                "train_size": len(emilia_dataset),
+                # "val_size": len(dataset['test']),
+                "learning_rate": config.lr,
+                "batch_size": config.per_device_train_batch_size,
+                "epochs": config.num_train_epochs,
+            }
+        )
+```
+# Inference
+```python
+python finetune/infer_neutts.py --text "PUT YOUR TEXT" --ref_audio "PUT YOUR REFERENCE AUDIO path" --ref_text "put the transcription of your ref_audio" --checkpoint "PATH TO THE BEST CHECKPOINT YOUR HAVE" --checkpoints_dir "FOLDER PATH WHICH CONTAINS YOUR FINETUNED CHECKPOINTS" --output "SAVED AUDIO FILE NAME" 
+```
